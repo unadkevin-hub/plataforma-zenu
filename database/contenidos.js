@@ -28,20 +28,20 @@ Ejemplo: "Tradicion_cana_flecha_Grado10.docx". Así tu docente y tú encuentran 
         actividades: [
           {
             enunciado: 'Vas a escribir los pasos para tejer la trenza de caña flecha. ¿Qué herramienta del procesador de texto es la más adecuada?',
-            opciones: ['Escribir todo en un solo párrafo largo', 'Usar una lista con viñetas o numerada', 'Poner cada paso en una imagen', 'Usar la barra espaciadora para separar los pasos'],
+            opciones: ['Escribir todos los pasos seguidos en un solo párrafo', 'Usar una lista numerada con un paso en cada línea', 'Pegar una imagen distinta para cada uno de los pasos', 'Separar los pasos con la barra espaciadora y Enter'],
             respuesta: 1,
             retroalimentacion: 'Las listas numeradas o con viñetas ordenan los pasos y hacen que el texto se lea fácil. Los espacios en blanco desordenan el documento en otros equipos.'
           },
           {
             enunciado: '¿Cuál es la forma correcta de poner el título de tu trabajo?',
-            opciones: ['Escribirlo en mayúsculas sostenidas con muchos espacios antes', 'Aplicarle el estilo "Título 1"', 'Copiarlo como imagen', 'Escribirlo al final del documento'],
-            respuesta: 1,
+            opciones: ['Escribirlo en mayúsculas y con muchos espacios antes', 'Copiarlo como imagen y pegarlo al inicio del archivo', 'Aplicarle el estilo «Título 1» desde la cinta de estilos', 'Escribirlo al final del documento, después de todo'],
+            respuesta: 2,
             retroalimentacion: 'El estilo "Título 1" da formato uniforme y además permite crear tablas de contenido automáticas.'
           },
           {
             enunciado: '¿Cuál de estos nombres de archivo es mejor para entregar tu trabajo?',
-            opciones: ['documento1.docx', 'trabajo final final ahora si.docx', 'Tradicion_cana_flecha_Grado10.docx', 'asdf.docx'],
-            respuesta: 2,
+            opciones: ['Tradicion_cana_flecha_Grado10.docx', 'trabajo final final ahora si.docx', 'documento1_final_definitivo.docx', 'mi_tarea_de_tecnologia_nueva.docx'],
+            respuesta: 0,
             retroalimentacion: 'Un nombre claro dice de qué trata el archivo y de quién es, sin espacios raros ni palabras repetidas.'
           }
         ]
@@ -65,19 +65,19 @@ Si cambias un precio, el total se actualiza solo. Por eso no se debe escribir el
         actividades: [
           {
             enunciado: 'En la hoja, los valores de los materiales están en las celdas B2, B3 y B4. ¿Qué escribes en B5 para obtener el total?',
-            opciones: ['SUMA B2 B4', '=SUMA(B2:B4)', '=B2:B4', 'total'],
-            respuesta: 1,
+            opciones: ['SUMA(B2:B4)', '=B2+B4', '=SUMA(B2;B5)', '=SUMA(B2:B4)'],
+            respuesta: 3,
             retroalimentacion: 'Las fórmulas empiezan con "=" y el rango se escribe con dos puntos: =SUMA(B2:B4).'
           },
           {
             enunciado: '¿Qué significa la dirección de celda C7?',
-            opciones: ['Fila C, columna 7', 'Columna C, fila 7', 'La séptima hoja del libro', 'Un error de la hoja'],
-            respuesta: 1,
+            opciones: ['Fila C, columna 7', 'Hoja C, celda número 7', 'Columna C, fila 7', 'Columna 7, fila C'],
+            respuesta: 2,
             retroalimentacion: 'Primero va la letra de la columna y luego el número de la fila.'
           },
           {
             enunciado: 'Cambiaste el precio del tinte y el total no cambió. ¿Qué pasó probablemente?',
-            opciones: ['La hoja está dañada', 'El total se escribió a mano y no con una fórmula', 'Hay que apagar el celular', 'Las hojas de cálculo no suman decimales'],
+            opciones: ['La hoja está dañada y hay que crear otra nueva', 'El total se escribió a mano y no con una fórmula', 'Las hojas de cálculo no suman números con decimales', 'Hay que cerrar el archivo para que se actualice'],
             respuesta: 1,
             retroalimentacion: 'Cuando el total es un número escrito a mano, no se recalcula. Con =SUMA() se actualiza solo.'
           }
@@ -100,20 +100,20 @@ Google Drive y OneDrive guardan tus archivos en internet. Si se daña o se pierd
         actividades: [
           {
             enunciado: '¿Cuál diapositiva se entiende mejor?',
-            opciones: ['Una con dos párrafos largos de texto pequeño', 'Una con el título, tres viñetas cortas y una foto del tejido', 'Una con texto amarillo sobre fondo blanco', 'Una con diez imágenes pequeñas'],
-            respuesta: 1,
+            opciones: ['Una con dos párrafos largos en letra pequeña', 'Una con texto amarillo claro sobre fondo blanco', 'Una con diez imágenes pequeñas y sin título', 'Una con título, tres viñetas cortas y una foto'],
+            respuesta: 3,
             retroalimentacion: 'Pocas palabras, buen contraste y una imagen de apoyo hacen que la diapositiva se entienda rápido.'
           },
           {
             enunciado: 'Quieres que tu docente revise tu trabajo en Drive pero sin poder cambiarlo. ¿Qué permiso le das?',
-            opciones: ['Editor', 'Lector', 'Propietario', 'Ninguno, le mandas la contraseña de tu cuenta'],
-            respuesta: 1,
+            opciones: ['Lector, para que solo pueda verlo', 'Editor, para que pueda cambiarlo', 'Propietario, para que lo administre', 'Ninguno: le das tu contraseña'],
+            respuesta: 0,
             retroalimentacion: 'El permiso de Lector deja ver el archivo sin modificarlo. Nunca compartas la contraseña de tu cuenta.'
           },
           {
             enunciado: '¿Cuál es una ventaja de guardar tus archivos en la nube?',
-            opciones: ['No necesitan internet nunca', 'Si pierdes el celular, el archivo no se pierde', 'Ocupan más memoria en el teléfono', 'Cualquier persona puede verlos sin permiso'],
-            respuesta: 1,
+            opciones: ['Los archivos se pueden abrir sin internet siempre', 'Los archivos ocupan más memoria en el teléfono', 'Si pierdes el celular, tus archivos no se pierden', 'Cualquier persona puede verlos sin pedir permiso'],
+            respuesta: 2,
             retroalimentacion: 'La nube funciona como copia de respaldo: tus archivos quedan en tu cuenta aunque cambies de equipo.'
           }
         ]
@@ -144,20 +144,20 @@ Palabras clave: canales hidráulicos zenú río San Jorge
         actividades: [
           {
             enunciado: '¿Cuál búsqueda es mejor para encontrar información sobre el sistema de canales de los Zenúes?',
-            opciones: ['quiero saber cosas de los indios de antes', 'canales hidráulicos zenú río San Jorge', 'tarea', 'zenú'],
-            respuesta: 1,
+            opciones: ['cosas de los zenúes de antes para mi tarea', 'qué hacían los indígenas con el agua del río', 'río San Jorge', 'canales hidráulicos zenú río San Jorge'],
+            respuesta: 3,
             retroalimentacion: 'Las palabras clave específicas (qué, quién y dónde) dan resultados más precisos.'
           },
           {
             enunciado: '¿Qué hacen las comillas en una búsqueda como "sombrero vueltiao"?',
-            opciones: ['Buscan la frase exacta', 'Borran la búsqueda', 'Buscan solo imágenes', 'Traducen al inglés'],
+            opciones: ['Buscan la frase exacta', 'Borran la búsqueda anterior', 'Buscan solo imágenes', 'Traducen la frase al inglés'],
             respuesta: 0,
             retroalimentacion: 'Las comillas le piden al buscador que encuentre esas palabras juntas y en ese orden.'
           },
           {
             enunciado: 'Buscas documentos en PDF sobre competencias digitales. ¿Qué agregas a la búsqueda?',
-            opciones: ['-pdf', 'filetype:pdf', '"pdf pdf pdf"', 'site:pdf'],
-            respuesta: 1,
+            opciones: ['-pdf', '\"pdf pdf pdf\"', 'filetype:pdf', 'site:pdf'],
+            respuesta: 2,
             retroalimentacion: 'El operador filetype:pdf filtra los resultados para que solo aparezcan archivos PDF.'
           }
         ]
@@ -179,20 +179,20 @@ Páginas sin autor, llenas de anuncios, con títulos exagerados o que piden comp
         actividades: [
           {
             enunciado: '¿Cuál de estas fuentes es más confiable para una tarea sobre la historia del pueblo Zenú?',
-            opciones: ['Un video sin autor que dice "lo que nadie te contó"', 'Un artículo de la Red Cultural del Banco de la República con autor y referencias', 'Un comentario en una publicación de Facebook', 'Una página con muchos anuncios y sin fecha'],
-            respuesta: 1,
+            opciones: ['Un video sin autor que dice «lo que nadie te contó»', 'Un comentario muy compartido en una página de Facebook', 'Una página sin fecha, con muchos anuncios y ventanas', 'Un artículo del Banco de la República con autor y fuentes'],
+            respuesta: 3,
             retroalimentacion: 'Una institución reconocida, un autor identificado y referencias son señales de confiabilidad.'
           },
           {
             enunciado: 'Una página sobre celulares no tiene fecha de publicación. ¿Por qué es un problema?',
-            opciones: ['No es un problema', 'Porque la información de tecnología cambia y puede estar desactualizada', 'Porque las páginas con fecha son más bonitas', 'Porque Google no la muestra'],
-            respuesta: 1,
+            opciones: ['La información puede estar desactualizada', 'No es un problema si la página se ve moderna', 'Google no muestra las páginas que no tienen fecha', 'Sin fecha la página carga más lento en el celular'],
+            respuesta: 0,
             retroalimentacion: 'En temas que cambian rápido, sin fecha no sabes si la información todavía es válida.'
           },
           {
             enunciado: 'Una página dice que un té cura todas las enfermedades y al final vende el té. ¿Cuál es su propósito principal?',
-            opciones: ['Informar de manera neutral', 'Vender un producto', 'Enseñar ciencia', 'Hacer un chiste'],
-            respuesta: 1,
+            opciones: ['Informar de manera neutral', 'Enseñar ciencia', 'Vender un producto', 'Hacer un chiste'],
+            respuesta: 2,
             retroalimentacion: 'Cuando la página vende lo que recomienda, su objetivo es comercial y la información puede ser exagerada.'
           }
         ]
@@ -214,20 +214,20 @@ Cuando usas información de otra persona debes decir de dónde la tomaste. Una c
         actividades: [
           {
             enunciado: 'Te llega por WhatsApp: "¡URGENTE! Cierran el colegio mañana, compártelo ya". ¿Qué haces primero?',
-            opciones: ['Lo reenvío a todos mis grupos', 'Verifico con el colegio o con fuentes oficiales antes de compartir', 'Lo ignoro y lo reenvío después', 'Le cambio el texto y lo comparto'],
-            respuesta: 1,
+            opciones: ['Lo reenvío rápido a todos mis grupos', 'Lo reenvío solo a mi familia por si acaso', 'Le cambio el texto y lo comparto en mi estado', 'Verifico con el colegio o fuentes oficiales'],
+            respuesta: 3,
             retroalimentacion: 'Los mensajes con urgencia y sin fuente son una señal típica de noticia falsa. Primero verifica con la fuente oficial.'
           },
           {
             enunciado: '¿Qué elementos tiene una cita básica en normas APA?',
-            opciones: ['Solo el enlace', 'Autor, año, título y fuente o enlace', 'El nombre del buscador que usaste', 'Tu nombre y la fecha de hoy'],
-            respuesta: 1,
+            opciones: ['Solo el enlace de la página', 'El nombre del buscador que usaste', 'Autor, año, título y fuente o enlace', 'Tu nombre y la fecha de hoy'],
+            respuesta: 2,
             retroalimentacion: 'Autor, año, título y fuente permiten que cualquiera encuentre el documento original.'
           },
           {
             enunciado: 'Una foto de una inundación circula como si fuera de hoy en Sampués. ¿Qué te puede ayudar a verificarla?',
-            opciones: ['Contar cuántos "me gusta" tiene', 'Hacer una búsqueda inversa de la imagen para ver dónde y cuándo apareció antes', 'Preguntar en el grupo si alguien la cree', 'Ampliar la imagen'],
-            respuesta: 1,
+            opciones: ['Hacer una búsqueda inversa de la imagen', 'Contar cuántos «me gusta» tiene la publicación', 'Preguntar en el grupo si alguien la cree', 'Ampliar la imagen para verla con más detalle'],
+            respuesta: 0,
             retroalimentacion: 'La búsqueda inversa de imágenes (Google Lens) muestra si la foto ya se había publicado antes y en qué lugar.'
           }
         ]
@@ -256,20 +256,20 @@ Junta tres o cuatro palabras que solo tú relaciones y agrega números o signos:
         actividades: [
           {
             enunciado: '¿Cuál de estas contraseñas es más segura?',
-            opciones: ['123456', 'maria2008', 'Caña-Rio-Tigre-27', 'contraseña'],
-            respuesta: 2,
+            opciones: ['MiNombreCompleto2008', '1234567890', 'contraseña123', 'Caña-Rio-Tigre-27'],
+            respuesta: 3,
             retroalimentacion: 'Una frase larga con varias palabras y signos es mucho más difícil de adivinar que un nombre o una fecha.'
           },
           {
             enunciado: '¿Para qué sirve la verificación en dos pasos?',
-            opciones: ['Para entrar más rápido', 'Para pedir un código adicional aunque alguien sepa tu contraseña', 'Para borrar tus mensajes', 'Para gastar menos datos'],
+            opciones: ['Para entrar más rápido sin escribir la clave', 'Para pedir un código extra si alguien sabe tu clave', 'Para borrar los mensajes viejos de la cuenta', 'Para gastar menos datos al usar la aplicación'],
             respuesta: 1,
             retroalimentacion: 'Con la verificación en dos pasos, aunque alguien tenga tu contraseña, necesita también un código que solo llega a ti.'
           },
           {
             enunciado: 'Tu amigo te pide la contraseña de tu Facebook "solo para ver algo". ¿Qué haces?',
-            opciones: ['Se la doy porque es mi amigo', 'No la comparto; si necesita ver algo, se lo muestro yo', 'Se la doy y la cambio en un año', 'Le doy la de mi correo mejor'],
-            respuesta: 1,
+            opciones: ['Se la doy porque es mi amigo de confianza', 'Se la doy y la cambio dentro de un año', 'No la comparto; si necesita algo, se lo muestro', 'Le doy mejor la contraseña de mi correo'],
+            respuesta: 2,
             retroalimentacion: 'Las contraseñas son personales. Compartirlas pone en riesgo tu cuenta y tu información.'
           }
         ]
@@ -291,20 +291,20 @@ No abras el enlace, no envíes códigos, bloquea el número y avisa a un adulto 
         actividades: [
           {
             enunciado: 'Te escriben: "Ganaste un celular. Envíanos el código de 6 dígitos que te llegó por mensaje para reclamarlo". ¿Qué es esto?',
-            opciones: ['Un premio real', 'Un intento de fraude para robar tu cuenta', 'Un mensaje del colegio', 'Una actualización del celular'],
-            respuesta: 1,
+            opciones: ['Un fraude para robar tu cuenta de WhatsApp', 'Un premio real de una empresa conocida', 'Un mensaje oficial del colegio o del cabildo', 'Una actualización normal del celular'],
+            respuesta: 0,
             retroalimentacion: 'Ninguna empresa seria pide códigos de verificación. Ese código sirve para entrar a tu cuenta de WhatsApp.'
           },
           {
             enunciado: '¿Cuál enlace es sospechoso?',
-            opciones: ['https://www.bancolombia.com', 'https://bancoIombia-premios.xyz', 'https://www.mineducacion.gov.co', 'https://www.unad.edu.co'],
-            respuesta: 1,
+            opciones: ['https://www.bancolombia.com', 'https://www.mineducacion.gov.co', 'https://bancoIombia-premios.xyz', 'https://www.unad.edu.co'],
+            respuesta: 2,
             retroalimentacion: 'El enlace usa una "I" mayúscula en vez de la "l" y un dominio raro (.xyz). Es una imitación.'
           },
           {
             enunciado: 'Ya enviaste tu contraseña a una página falsa. ¿Qué haces?',
-            opciones: ['Nada, ya pasó', 'Cambio la contraseña de inmediato y activo la verificación en dos pasos', 'Borro la aplicación', 'Envío también mi correo para que me ayuden'],
-            respuesta: 1,
+            opciones: ['Nada, ya pasó y no se puede hacer nada', 'Borro la aplicación y la vuelvo a instalar', 'Envío también mi correo para que me ayuden', 'Cambio la contraseña y activo los dos pasos'],
+            respuesta: 3,
             retroalimentacion: 'Cambiar la contraseña rápido y activar la verificación en dos pasos impide que el estafador use tu cuenta.'
           }
         ]
@@ -325,19 +325,19 @@ No abras el enlace, no envíes códigos, bloquea el número y avisa a un adulto 
         actividades: [
           {
             enunciado: '¿Cuál de estos datos NO deberías publicar en redes sociales?',
-            opciones: ['Una foto del paisaje', 'Tu número de documento de identidad', 'Una frase que te gusta', 'Tu canción favorita'],
-            respuesta: 1,
+            opciones: ['Tu número de documento de identidad', 'Una foto del paisaje del resguardo', 'Una frase que te gusta mucho', 'Tu canción favorita del momento'],
+            respuesta: 0,
             retroalimentacion: 'El número de documento permite suplantar tu identidad. Es un dato personal que debes proteger.'
           },
           {
             enunciado: '¿Qué opción de privacidad es más segura para tus publicaciones personales?',
-            opciones: ['Público', 'Amigos', 'Cualquiera con el enlace', 'Todos los grupos'],
-            respuesta: 1,
+            opciones: ['Público', 'Cualquiera con el enlace', 'Todos los grupos', 'Amigos'],
+            respuesta: 3,
             retroalimentacion: 'Con "Amigos" solo las personas que aceptaste pueden ver lo que publicas.'
           },
           {
             enunciado: '¿Qué es la huella digital?',
-            opciones: ['La huella de tu dedo en la pantalla', 'El rastro de lo que publicas y haces en internet', 'Un programa antivirus', 'La contraseña del celular'],
+            opciones: ['La huella de tu dedo que queda en la pantalla', 'El rastro de lo que publicas y haces en internet', 'Un programa antivirus que protege el celular', 'La contraseña que usas para desbloquear el celular'],
             respuesta: 1,
             retroalimentacion: 'La huella digital es todo lo que queda registrado de ti en internet, y puede durar muchos años.'
           }

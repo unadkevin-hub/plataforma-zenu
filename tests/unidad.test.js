@@ -1,5 +1,5 @@
 // Pruebas unitarias (PU-01 a PU-14): funciones y componentes aislados, sin servidor ni base de datos
-const { escapar, leccionAHtml, ALIAS_RE, validarContrasena } = require('../src/utils/formato');
+const { escapar, leccionAHtml, ALIAS_RE, validarContrasena, barajar } = require('../src/utils/formato');
 const { calcularLogros } = require('../src/models');
 const { generarCodigoRecuperacion } = require('../src/routes/auth');
 const { requiereSesion, requiereRol, ROLES } = require('../src/middleware/auth');
@@ -38,6 +38,16 @@ describe('Utilidades de formato y validación', () => {
     expect(validarContrasena('corta1')).toBe(false);
     expect(validarContrasena('solamenteletras')).toBe(false);
     expect(validarContrasena('1234567890')).toBe(false);
+  });
+});
+
+describe('Orden de las opciones', () => {
+  test('PU-15 barajar() devuelve una permutación estable por estudiante y no deja la correcta siempre en el mismo lugar', () => {
+    const a = barajar(4, '7-12');
+    expect([...a].sort()).toEqual([0, 1, 2, 3]);
+    expect(barajar(4, '7-12')).toEqual(a);
+    const posiciones = new Set(Array.from({ length: 40 }, (_, u) => barajar(4, `${u}-1`).indexOf(0)));
+    expect(posiciones.size).toBe(4);
   });
 });
 

@@ -30,4 +30,18 @@ function validarContrasena(c = '') {
   return typeof c === 'string' && c.length >= 8 && /[A-Za-zñÑ]/.test(c) && /\d/.test(c);
 }
 
-module.exports = { escapar, leccionAHtml: lecciónAHtml, ALIAS_RE, validarContrasena };
+// Orden de presentación de las opciones de una actividad: una permutación estable para cada
+// estudiante y actividad, para que la respuesta correcta no esté siempre en la misma posición.
+function barajar(n, semilla) {
+  let h = 2166136261;
+  for (const c of String(semilla)) { h ^= c.charCodeAt(0); h = Math.imul(h, 16777619) >>> 0; }
+  const azar = () => { h = (Math.imul(h, 1103515245) + 12345) >>> 0; return h / 4294967296; };
+  const orden = Array.from({ length: n }, (_, i) => i);
+  for (let i = n - 1; i > 0; i--) {
+    const j = Math.floor(azar() * (i + 1));
+    [orden[i], orden[j]] = [orden[j], orden[i]];
+  }
+  return orden;
+}
+
+module.exports = { escapar, leccionAHtml: lecciónAHtml, ALIAS_RE, validarContrasena, barajar };

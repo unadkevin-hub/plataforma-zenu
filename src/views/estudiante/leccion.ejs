@@ -19,7 +19,7 @@
   <input type="hidden" name="_csrf" value="<%= csrf %>">
   <fieldset>
     <legend class="fs-6 fw-semibold"><span class="text-body-secondary">Pregunta <%= i + 1 %>.</span> <%= a.enunciado %></legend>
-    <% a.opciones.forEach(function(o, j){ %>
+    <% a.orden_opciones.forEach(function(j){ const o = a.opciones[j]; %>
     <div class="form-check opcion">
       <input class="form-check-input" type="radio" name="opcion" id="a<%= a.id_actividad %>o<%= j %>" value="<%= j %>" required>
       <label class="form-check-label" for="a<%= a.id_actividad %>o<%= j %>"><%= o %></label>
@@ -50,8 +50,18 @@
 </form>
 <% } %>
 
-<div class="d-flex justify-content-between mt-4">
-  <% if (vecinas.anterior) { %><a class="btn btn-outline-dark" href="/lecciones/<%= vecinas.anterior %>">← Anterior</a><% } else { %><span></span><% } %>
-  <% if (vecinas.siguiente) { %><a class="btn btn-primary" href="/lecciones/<%= vecinas.siguiente %>">Siguiente lección →</a><% } else { %><a class="btn btn-primary" href="/modulos/<%= leccion.id_modulo %>">Volver al módulo</a><% } %>
-</div>
+<nav class="d-flex flex-wrap justify-content-between gap-2 mt-4" id="navegacion-leccion" aria-label="Navegación entre lecciones">
+  <% if (vecinas.anterior) { %><a class="btn btn-outline-dark" href="/lecciones/<%= vecinas.anterior %>">← Lección anterior</a><% } else { %><a class="btn btn-outline-dark" href="/modulos/<%= leccion.id_modulo %>">← Volver al módulo</a><% } %>
+  <div class="d-flex flex-wrap gap-2">
+  <% if (vecinas.siguiente) { %>
+    <a class="btn btn-primary siguiente-paso" href="/lecciones/<%= vecinas.siguiente %>">Siguiente lección →</a>
+  <% } else if (siguienteModulo) { %>
+    <a class="btn btn-outline-dark" href="/panel">Mi panel</a>
+    <a class="btn btn-primary siguiente-paso" href="/modulos/<%= siguienteModulo.id_modulo %>">Siguiente módulo: <%= siguienteModulo.titulo %> →</a>
+  <% } else { %>
+    <a class="btn btn-outline-dark" href="/progreso">Ver mis logros</a>
+    <a class="btn btn-primary siguiente-paso" href="/panel">Volver a mi panel</a>
+  <% } %>
+  </div>
+</nav>
 <%- include('../partials/pie') %>

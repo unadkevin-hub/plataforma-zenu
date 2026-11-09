@@ -141,14 +141,14 @@ describe('Módulos, lecciones y actividades (RF-04 a RF-08)', () => {
   });
 
   test('CP-16 Funciona sin JavaScript: el formulario normal redirige con la retroalimentación', async () => {
-    const r = await a.post('/actividades/2/responder').type('form').send({ _csrf: a.csrf, opcion: 1 });
+    const r = await a.post('/actividades/2/responder').type('form').send({ _csrf: a.csrf, opcion: 2 });
     expect(r.status).toBe(302);
     const p = await a.get('/lecciones/1');
     expect(p.text).toContain('¡Correcto!');
   });
 
   test('CP-17 Al responder todas las actividades la lección queda completada y el avance sube', async () => {
-    const r = await a.post('/actividades/3/responder').set('Accept', 'application/json').set('X-CSRF-Token', a.csrf).send({ opcion: 2 });
+    const r = await a.post('/actividades/3/responder').set('Accept', 'application/json').set('X-CSRF-Token', a.csrf).send({ opcion: 0 });
     expect(r.body.leccionCompletada).toBe(true);
     const m = await a.get('/modulos/1');
     expect(m.text).toContain('33 % completado');
@@ -163,6 +163,18 @@ describe('Módulos, lecciones y actividades (RF-04 a RF-08)', () => {
     const r = await a.get('/progreso');
     expect(r.text).toContain('Primer acierto');
     expect(r.text).toMatch(/<div class="cifra">3<\/div><div class="small">aprobadas/);
+  });
+
+  test('CP-27 Al terminar un módulo se ofrece el paso al siguiente módulo', async () => {
+    for (const [id, op] of [[4, 1], [5, 1], [6, 2], [7, 3], [8, 2], [9, 2]]) {
+      const [[act]] = await pool.query('SELECT respuesta FROM actividades WHERE id_actividad = ?', [id]);
+      await a.post(`/actividades/${id}/responder`).set('Accept', 'application/json').set('X-CSRF-Token', a.csrf).send({ opcion: act.respuesta });
+    }
+    const ultima = await a.get('/lecciones/3');
+    expect(ultima.text).toContain('Siguiente módulo: Búsqueda y evaluación de información');
+    expect(ultima.text).toContain('href="/modulos/2"');
+    const modulo = await a.get('/modulos/1');
+    expect(modulo.text).toContain('¡Completaste este módulo!');
   });
 });
 

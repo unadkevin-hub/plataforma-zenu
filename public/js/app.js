@@ -10,6 +10,29 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
+  // Botón para ver u ocultar la contraseña mientras se escribe
+  document.querySelectorAll('input[type="password"]').forEach(function (campo) {
+    var grupo = document.createElement('div');
+    grupo.className = 'input-group';
+    campo.parentNode.insertBefore(grupo, campo);
+    grupo.appendChild(campo);
+    var boton = document.createElement('button');
+    boton.type = 'button';
+    boton.className = 'btn btn-outline-secondary ver-clave';
+    boton.textContent = 'Ver';
+    boton.setAttribute('aria-label', 'Mostrar contraseña');
+    boton.setAttribute('aria-pressed', 'false');
+    boton.addEventListener('click', function () {
+      var visible = campo.type === 'password';
+      campo.type = visible ? 'text' : 'password';
+      boton.textContent = visible ? 'Ocultar' : 'Ver';
+      boton.setAttribute('aria-label', visible ? 'Ocultar contraseña' : 'Mostrar contraseña');
+      boton.setAttribute('aria-pressed', visible ? 'true' : 'false');
+      campo.focus();
+    });
+    grupo.appendChild(boton);
+  });
+
   // Confirmación antes de acciones destructivas
   document.querySelectorAll('form.confirmar').forEach(function (f) {
     f.addEventListener('submit', function (e) {
@@ -80,7 +103,12 @@ document.addEventListener('DOMContentLoaded', function () {
           aviso.id = 'aviso-completa';
           aviso.className = 'alert alert-success';
           aviso.setAttribute('role', 'status');
-          aviso.textContent = '¡Completaste esta lección! Puedes seguir con la siguiente.';
+          aviso.className = 'alert alert-success d-flex flex-wrap align-items-center justify-content-between gap-2';
+          var texto = document.createElement('strong');
+          texto.textContent = '¡Completaste esta lección!';
+          aviso.appendChild(texto);
+          var siguiente = document.querySelector('#navegacion-leccion .siguiente-paso');
+          if (siguiente) aviso.appendChild(siguiente.cloneNode(true));
           var acts = document.querySelectorAll('form.actividad');
           acts[acts.length - 1].after(aviso);
         }

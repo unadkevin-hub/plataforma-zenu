@@ -7,6 +7,15 @@
 <p><%= modulo.descripcion %></p>
 <div class="progress mb-1" role="progressbar" aria-label="Avance del módulo" aria-valuenow="<%= avance %>" aria-valuemin="0" aria-valuemax="100"><div class="progress-bar" style="width: <%= avance %>%"></div></div>
 <p class="small mb-4"><%= avance %> % completado</p>
+<% if (avance === 100) { %>
+<div class="alert alert-success d-flex flex-wrap align-items-center justify-content-between gap-2" role="status">
+  <span><strong>¡Completaste este módulo!</strong> <%= siguienteModulo ? 'Sigue con el próximo.' : 'Terminaste todos los módulos.' %></span>
+  <span class="d-flex gap-2">
+    <a class="btn btn-outline-dark btn-sm text-nowrap" href="/panel">Mi panel</a>
+    <% if (siguienteModulo) { %><a class="btn btn-primary btn-sm" href="/modulos/<%= siguienteModulo.id_modulo %>">Siguiente módulo: <%= siguienteModulo.titulo %> →</a><% } else { %><a class="btn btn-primary btn-sm" href="/progreso">Ver mis logros</a><% } %>
+  </span>
+</div>
+<% } %>
 <ol class="list-unstyled lecciones">
 <% lecciones.forEach(function(l, i){ %>
   <li class="tarjeta p-3 mb-2 d-flex align-items-center justify-content-between gap-2">

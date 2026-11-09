@@ -50,3 +50,6 @@ a.tarjeta.modulo:hover, a.tarjeta.modulo:focus { transform: translateY(-2px); bo
 .pie a { color: #f6efe1; }
 .text-body-secondary { color: #5c4f42 !important; }
 .badge.text-bg-light { background: #e7dcc6 !important; color: #2b2118 !important; }
+
+.ver-clave { min-width: 5.5rem; border-color: #ced4da; color: #2b2118; background: #fffdf8; }
+.ver-clave:hover, .ver-clave[aria-pressed="true"] { background: #e7dcc6; color: #2b2118; }

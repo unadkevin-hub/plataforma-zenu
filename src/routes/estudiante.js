@@ -2,7 +2,7 @@
 const express = require('express');
 const { pool } = require('../config/db');
 const { requiereSesion } = require('../middleware/auth');
-const { leccionAHtml } = require('../utils/formato');
+const { leccionAHtml, barajar } = require('../utils/formato');
 const { modulosConProgreso, calcularLogros, actualizarCompletitudLeccion } = require('../models');
 
 const router = express.Router();
@@ -10,6 +10,14 @@ const router = express.Router();
 function idValido(v) {
   const n = Number(v);
   return Number.isInteger(n) && n > 0 ? n : null;
+}
+
+async function siguienteModulo(idModulo) {
+  const [[m]] = await pool.query(`
+    SELECT s.id_modulo, s.titulo FROM modulos s, modulos a
+    WHERE a.id_modulo = ? AND s.publicado = 1 AND (s.orden, s.id_modulo) > (a.orden, a.id_modulo)
+    ORDER BY s.orden, s.id_modulo LIMIT 1`, [idModulo]);
+  return m || null;
 }
 
 router.get('/panel', requiereSesion, async (req, res) => {
@@ -37,7 +45,7 @@ router.get('/modulos/:id', requiereSesion, async (req, res, next) => {
     ORDER BY l.orden, l.id_leccion`, [req.session.usuario.id, id]);
   const completadas = lecciones.filter((l) => l.completada_en).length;
   res.render('estudiante/modulo', {
-    titulo: modulo.titulo, modulo, lecciones,
+    titulo: modulo.titulo, modulo, lecciones, siguienteModulo: await siguienteModulo(id),
     avance: lecciones.length ? Math.round((completadas / lecciones.length) * 100) : 0
   });
 });
@@ -55,7 +63,10 @@ router.get('/lecciones/:id', requiereSesion, async (req, res, next) => {
     FROM actividades a
     LEFT JOIN resultados r ON r.id_actividad = a.id_actividad AND r.id_usuario = ?
     WHERE a.id_leccion = ? ORDER BY a.orden, a.id_actividad`, [req.session.usuario.id, id]);
-  actividades.forEach((a) => { if (typeof a.opciones === 'string') a.opciones = JSON.parse(a.opciones); });
+  actividades.forEach((a) => {
+    if (typeof a.opciones === 'string') a.opciones = JSON.parse(a.opciones);
+    a.orden_opciones = barajar(a.opciones.length, `${req.session.usuario.id}-${a.id_actividad}`);
+  });
   const [[completada]] = await pool.query('SELECT 1 AS x FROM progreso_lecciones WHERE id_usuario = ? AND id_leccion = ?', [req.session.usuario.id, id]);
   const [[vecinas]] = await pool.query(`
     SELECT
@@ -66,7 +77,8 @@ router.get('/lecciones/:id', requiereSesion, async (req, res, next) => {
   delete req.session.retro;
   res.render('estudiante/leccion', {
     titulo: leccion.titulo, leccion, actividades, html: leccionAHtml(leccion.contenido),
-    completada: !!completada, vecinas, retro
+    completada: !!completada, vecinas, retro,
+    siguienteModulo: vecinas.siguiente ? null : await siguienteModulo(leccion.id_modulo)
   });
 });
 
