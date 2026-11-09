@@ -25,7 +25,7 @@ HTML5, CSS3, JavaScript y Bootstrap 5 (capa de presentación) · Node.js 18+ con
 Requisitos: Node.js 18 o superior y MySQL 8 (o MariaDB 10.6+).
 
 ```bash
-git clone <URL-del-repositorio>
+git clone https://github.com/unadkevin-hub/plataforma-zenu.git
 cd plataforma-zenu
 npm install
 cp .env.example .env        # en Windows: copy .env.example .env
@@ -51,7 +51,17 @@ Los estudiantes se registran desde la página de inicio.
 npm test
 ```
 
-Ejecuta 26 casos de prueba automatizados (CP-01 a CP-26) sobre una base de datos aparte (`plataforma_zenu_test`), que cubren registro, autenticación, roles, actividades, progreso, panel del facilitador, reportes, exportación anonimizada, derechos del titular y seguridad. Las evidencias de Lighthouse y de las pruebas en conexión de baja velocidad están en `docs/evidencias/`.
+Ejecuta 40 pruebas automatizadas:
+
+- 14 pruebas unitarias (PU-01 a PU-14, `tests/unidad.test.js`) de funciones y componentes aislados: validaciones, conversión segura del contenido, código de recuperación, cálculo de logros y control de acceso.
+- 26 pruebas de integración (CP-01 a CP-26, `tests/plataforma.test.js`) sobre una base de datos aparte (`plataforma_zenu_test`), que recorren registro, autenticación, roles, actividades, progreso, panel del facilitador, reportes, exportación anonimizada, derechos del titular y seguridad. Las evidencias de Lighthouse y de las pruebas en conexión de baja velocidad están en `docs/evidencias/`.
+
+## Uso en una sesión presencial sin internet
+
+1. Inicie la plataforma en un computador portátil (`npm start`).
+2. Active el punto de acceso (hotspot) de un teléfono o conecte el portátil y los teléfonos de los participantes a la misma red Wi-Fi.
+3. Consulte la dirección IP del portátil (`ipconfig` en Windows) y, en los teléfonos, abra `http://<IP-del-portátil>:3000`.
+4. Si Windows pregunta, permita el acceso de Node.js en redes privadas.
 
 ## Despliegue en Render
 
@@ -59,19 +69,6 @@ Ejecuta 26 casos de prueba automatizados (CP-01 a CP-26) sobre una base de datos
 2. Desde su equipo, con esas credenciales en `.env` y `DB_SSL=true`, ejecute `npm run db:init` una sola vez.
 3. En Render: *New > Blueprint*, seleccione este repositorio (usa `render.yaml`) y complete las variables `DB_HOST`, `DB_PORT`, `DB_USER` y `DB_PASSWORD`.
 4. Render publica la plataforma con HTTPS en `https://<nombre>.onrender.com`. La ruta `/salud` permite verificar la conexión con la base de datos.
-
-## Subir el proyecto a GitHub
-
-```bash
-git init
-git add .
-git commit -m "Prototipo funcional Ruta Digital Zenú - Fase 4"
-git branch -M main
-git remote add origin https://github.com/<usuario>/plataforma-zenu.git
-git push -u origin main
-```
-
-El archivo `.env` no se sube (está en `.gitignore`). Para que el tutor tenga acceso de solo lectura, la forma más simple es dejar el repositorio público. Si debe ser privado, créenlo dentro de una organización de GitHub y agreguen al tutor con el rol *Read*; en un repositorio personal privado, los colaboradores reciben permisos de escritura.
 
 ## Estructura
 
@@ -82,7 +79,7 @@ src/routes/      auth, estudiante, perfil, facilitador, admin
 src/views/       plantillas EJS
 src/models.js    consultas de progreso y logros
 public/          estilos, JavaScript del cliente e ilustraciones SVG
-tests/           pruebas automatizadas (Jest + Supertest)
+tests/           pruebas unitarias y de integración (Jest + Supertest)
 scripts/         simulación de uso con 25 participantes virtuales y análisis de los instrumentos
 docs/evidencias/ reportes de Lighthouse y de pruebas de baja velocidad
 docs/guion-video.md guion sugerido para el video de máximo 10 minutos
