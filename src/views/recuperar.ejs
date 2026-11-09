@@ -1,0 +1,15 @@
+<%- include('partials/cabecera') %>
+<div class="mx-auto" style="max-width:480px">
+  <h1 class="h3 mb-3">Recuperar contraseña</h1>
+  <p>Usa el código de recuperación que te mostramos al crear la cuenta. Si lo perdiste, pídele al facilitador que restablezca tu contraseña.</p>
+  <% if (error) { %><div class="alert alert-danger" role="alert"><%= error %></div><% } %>
+  <form method="post" action="/recuperar" class="tarjeta p-4">
+    <input type="hidden" name="_csrf" value="<%= csrf %>">
+    <div class="mb-3"><label for="alias" class="form-label">Alias</label><input id="alias" name="alias" class="form-control" required value="<%= alias %>"></div>
+    <div class="mb-3"><label for="codigo" class="form-label">Código de recuperación</label><input id="codigo" name="codigo" class="form-control text-uppercase" required placeholder="ABCD-EFGH" autocomplete="off"></div>
+    <div class="mb-3"><label for="contrasena" class="form-label">Nueva contraseña</label><input id="contrasena" name="contrasena" type="password" class="form-control" required autocomplete="new-password"></div>
+    <div class="mb-3"><label for="confirmar" class="form-label">Repite la nueva contraseña</label><input id="confirmar" name="confirmar" type="password" class="form-control" required autocomplete="new-password"></div>
+    <button class="btn btn-primary w-100" type="submit">Cambiar contraseña</button>
+  </form>
+</div>
+<%- include('partials/pie') %>

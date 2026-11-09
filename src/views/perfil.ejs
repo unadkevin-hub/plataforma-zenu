@@ -1,0 +1,46 @@
+<%- include('partials/cabecera') %>
+<h1 class="h3 mb-3">Mi perfil</h1>
+<%- include('partials/errores', { errores }) %>
+<div class="row g-4">
+  <div class="col-md-6">
+    <form method="post" action="/perfil" class="tarjeta p-4 mb-4">
+      <h2 class="h5">Mis datos</h2>
+      <input type="hidden" name="_csrf" value="<%= csrf %>">
+      <div class="mb-3"><label for="alias" class="form-label">Alias</label><input id="alias" name="alias" class="form-control" value="<%= perfil.alias %>" required></div>
+      <div class="mb-3"><label for="rango_edad" class="form-label">Rango de edad</label>
+        <select id="rango_edad" name="rango_edad" class="form-select">
+          <% ['15-17','18-20'].concat(usuario.rol === 1 ? [] : ['adulto']).forEach(function(r){ %><option value="<%= r %>" <%= perfil.rango_edad === r ? 'selected' : '' %>><%= r === 'adulto' ? 'Adulto' : r + ' años' %></option><% }) %>
+        </select></div>
+      <p class="small text-body-secondary">Rol: <%= perfil.rol %> · Cuenta creada el <%= new Date(perfil.creado_en).toLocaleDateString('es-CO') %></p>
+      <button class="btn btn-primary">Guardar cambios</button>
+    </form>
+    <form method="post" action="/perfil/contrasena" class="tarjeta p-4">
+      <h2 class="h5">Cambiar contraseña</h2>
+      <input type="hidden" name="_csrf" value="<%= csrf %>">
+      <div class="mb-2"><label for="actual" class="form-label">Contraseña actual</label><input id="actual" name="actual" type="password" class="form-control" autocomplete="current-password" required></div>
+      <div class="mb-2"><label for="nueva" class="form-label">Nueva contraseña</label><input id="nueva" name="nueva" type="password" class="form-control" autocomplete="new-password" required></div>
+      <div class="mb-3"><label for="confirmar" class="form-label">Repite la nueva contraseña</label><input id="confirmar" name="confirmar" type="password" class="form-control" autocomplete="new-password" required></div>
+      <button class="btn btn-outline-dark">Cambiar contraseña</button>
+    </form>
+  </div>
+  <div class="col-md-6">
+    <div class="tarjeta p-4 mb-4">
+      <h2 class="h5">Mis autorizaciones</h2>
+      <ul class="small">
+        <% consentimientos.forEach(function(c){ %><li><%= { aviso_privacidad: 'Aviso de privacidad', tratamiento_datos: 'Tratamiento de datos', asentimiento_menor: 'Consentimiento del acudiente' }[c.tipo] %> (v<%= c.version_texto %>) — <%= new Date(c.aceptado_en).toLocaleDateString('es-CO') %></li><% }) %>
+      </ul>
+      <a class="btn btn-outline-dark btn-sm" href="/perfil/mis-datos">Descargar todos mis datos</a>
+    </div>
+    <% if (usuario.rol !== 3) { %>
+    <form method="post" action="/perfil/eliminar" class="tarjeta p-4 zona-peligro">
+      <h2 class="h5">Eliminar mi cuenta</h2>
+      <p class="small">Se borran tu cuenta, tus autorizaciones, tu progreso y tus resultados. Esta acción no se puede deshacer.</p>
+      <input type="hidden" name="_csrf" value="<%= csrf %>">
+      <div class="mb-2"><label for="confirmar_alias" class="form-label">Escribe tu alias para confirmar</label><input id="confirmar_alias" name="confirmar_alias" class="form-control" autocomplete="off" required></div>
+      <div class="mb-3"><label for="contrasena_e" class="form-label">Tu contraseña</label><input id="contrasena_e" name="contrasena" type="password" class="form-control" autocomplete="current-password" required></div>
+      <button class="btn btn-danger">Eliminar mi cuenta y mis datos</button>
+    </form>
+    <% } %>
+  </div>
+</div>
+<%- include('partials/pie') %>

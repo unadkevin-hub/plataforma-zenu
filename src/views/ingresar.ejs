@@ -1,0 +1,22 @@
+<%- include('partials/cabecera') %>
+<div class="mx-auto" style="max-width:440px">
+  <h1 class="h3 mb-3">Ingresar</h1>
+  <% if (error) { %><div class="alert alert-danger" role="alert"><%= error %></div><% } %>
+  <form method="post" action="/ingresar" class="tarjeta p-4">
+    <input type="hidden" name="_csrf" value="<%= csrf %>">
+    <div class="mb-3">
+      <label for="alias" class="form-label">Alias</label>
+      <input id="alias" name="alias" class="form-control" required autocomplete="username" value="<%= alias %>">
+    </div>
+    <div class="mb-3">
+      <label for="contrasena" class="form-label">Contraseña</label>
+      <input id="contrasena" name="contrasena" type="password" class="form-control" required autocomplete="current-password">
+    </div>
+    <button class="btn btn-primary w-100" type="submit">Ingresar</button>
+    <div class="d-flex justify-content-between mt-3">
+      <a href="/recuperar">Olvidé mi contraseña</a>
+      <a href="/registro">Crear cuenta</a>
+    </div>
+  </form>
+</div>
+<%- include('partials/pie') %>

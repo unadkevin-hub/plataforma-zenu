@@ -1,0 +1,18 @@
+<%- include('../partials/cabecera') %>
+<h1 class="h3 mb-3">Estudiantes</h1>
+<% if (temporal) { %>
+<div class="alert alert-info" role="status">Contraseña temporal para <strong><%= temporal.alias %></strong>: <code class="fs-5"><%= temporal.clave %></code><br><span class="small">Entrégasela en persona y pídele que la cambie en su perfil.</span></div>
+<% } %>
+<div class="table-responsive tarjeta">
+<table class="table mb-0 align-middle">
+  <thead><tr><th>Alias</th><th>Edad</th><th>Último ingreso</th><th></th></tr></thead>
+  <tbody>
+  <% estudiantes.forEach(function(e){ %>
+  <tr><td><%= e.alias %></td><td><%= e.rango_edad %></td><td class="small"><%= e.ultimo_ingreso ? new Date(e.ultimo_ingreso).toLocaleString('es-CO') : 'Nunca' %></td>
+  <td><form method="post" action="/facilitador/estudiantes/<%= e.id_usuario %>/restablecer" class="confirmar" data-confirmar="¿Generar una contraseña temporal para <%= e.alias %>?"><input type="hidden" name="_csrf" value="<%= csrf %>"><button class="btn btn-sm btn-outline-dark">Restablecer contraseña</button></form></td></tr>
+  <% }) %>
+  <% if (!estudiantes.length) { %><tr><td colspan="4">Aún no hay estudiantes registrados.</td></tr><% } %>
+  </tbody>
+</table>
+</div>
+<%- include('../partials/pie') %>

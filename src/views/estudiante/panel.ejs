@@ -1,0 +1,30 @@
+<%- include('../partials/cabecera') %>
+<h1 class="h3">Hola, <%= usuario.alias %></h1>
+<% if (siguiente) { %>
+<div class="tarjeta p-3 mb-4 d-flex flex-wrap align-items-center justify-content-between gap-2 continuar">
+  <div><span class="small text-body-secondary">Continúa con</span><br><strong><%= siguiente.titulo %></strong> <span class="small">· <%= siguiente.modulo %></span></div>
+  <a class="btn btn-primary" href="/lecciones/<%= siguiente.id_leccion %>">Continuar</a>
+</div>
+<% } else if (modulos.length) { %>
+<div class="alert alert-success">¡Completaste todas las lecciones! Revisa tus logros en <a href="/progreso">Mi progreso</a>.</div>
+<% } %>
+<h2 class="h5 mb-3">Mis módulos</h2>
+<div class="row g-3">
+<% modulos.forEach(function(m){ %>
+  <div class="col-md-4">
+    <a class="tarjeta modulo p-3 h-100 d-block" href="/modulos/<%= m.id_modulo %>">
+      <div class="d-flex align-items-center gap-2">
+        <img src="/img/<%= m.icono %>" alt="" width="44" height="44">
+        <h3 class="h6 mb-0"><%= m.titulo %></h3>
+      </div>
+      <p class="small mt-2 mb-2"><%= m.descripcion %></p>
+      <div class="progress" role="progressbar" aria-label="Avance en <%= m.titulo %>" aria-valuenow="<%= m.avance %>" aria-valuemin="0" aria-valuemax="100">
+        <div class="progress-bar" style="width: <%= m.avance %>%"></div>
+      </div>
+      <p class="small mb-0 mt-1"><strong><%= m.avance %> %</strong> · <%= m.lecciones_completadas %> de <%= m.total_lecciones %> lecciones</p>
+    </a>
+  </div>
+<% }) %>
+<% if (!modulos.length) { %><p>Aún no hay módulos publicados.</p><% } %>
+</div>
+<%- include('../partials/pie') %>

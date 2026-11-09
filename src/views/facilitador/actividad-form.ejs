@@ -1,0 +1,23 @@
+<%- include('../partials/cabecera') %>
+<nav aria-label="Ruta de navegación"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="/facilitador">Contenidos</a></li><li class="breadcrumb-item"><a href="/facilitador/lecciones/<%= l.id_leccion %>"><%= l.titulo %></a></li><li class="breadcrumb-item active" aria-current="page"><%= titulo %></li></ol></nav>
+<h1 class="h3 mb-3"><%= titulo %></h1>
+<%- include('../partials/errores', { errores }) %>
+<form method="post" action="<%= accion %>" class="tarjeta p-4" style="max-width:760px">
+  <input type="hidden" name="_csrf" value="<%= csrf %>">
+  <div class="mb-3"><label class="form-label" for="tipo">Tipo</label>
+    <select id="tipo" name="tipo" class="form-select"><% [['seleccion','Pregunta de selección'],['caso','Análisis de caso'],['tarea_guiada','Tarea guiada']].forEach(function(t){ %><option value="<%= t[0] %>" <%= a.tipo === t[0] ? 'selected' : '' %>><%= t[1] %></option><% }) %></select></div>
+  <div class="mb-3"><label class="form-label" for="enunciado">Enunciado</label><textarea id="enunciado" name="enunciado" class="form-control" rows="3" maxlength="600" required><%= a.enunciado || '' %></textarea></div>
+  <fieldset class="mb-3"><legend class="form-label fs-6">Opciones (marca la correcta)</legend>
+  <% for (let j = 0; j < 4; j++) { %>
+    <div class="input-group mb-2">
+      <div class="input-group-text"><input class="form-check-input mt-0" type="radio" name="respuesta" value="<%= j %>" aria-label="Opción <%= j + 1 %> es la correcta" <%= a.respuesta === j ? 'checked' : '' %>></div>
+      <input name="opcion<%= j %>" class="form-control" placeholder="Opción <%= j + 1 %><%= j > 1 ? ' (opcional)' : '' %>" value="<%= (a.opciones && a.opciones[j]) || '' %>" aria-label="Texto de la opción <%= j + 1 %>">
+    </div>
+  <% } %>
+  </fieldset>
+  <div class="mb-3"><label class="form-label" for="retroalimentacion">Retroalimentación (se muestra después de responder)</label><textarea id="retroalimentacion" name="retroalimentacion" class="form-control" rows="2" maxlength="600" required><%= a.retroalimentacion || '' %></textarea></div>
+  <div class="mb-3" style="max-width:140px"><label class="form-label" for="orden">Orden</label><input id="orden" name="orden" type="number" min="1" class="form-control" value="<%= a.orden || 1 %>"></div>
+  <button class="btn btn-primary">Guardar actividad</button>
+  <a class="btn btn-link" href="/facilitador/lecciones/<%= l.id_leccion %>">Cancelar</a>
+</form>
+<%- include('../partials/pie') %>

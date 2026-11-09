@@ -1,0 +1,27 @@
+# Despliegue en Render (plan gratuito). La base de datos MySQL se aloja en un servicio externo
+# compatible (por ejemplo, Aiven for MySQL plan gratuito) y se configura con las variables DB_*.
+services:
+  - type: web
+    name: ruta-digital-zenu
+    runtime: node
+    plan: free
+    buildCommand: npm ci --omit=dev
+    startCommand: npm start
+    healthCheckPath: /salud
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: SESSION_SECRET
+        generateValue: true
+      - key: DB_HOST
+        sync: false
+      - key: DB_PORT
+        sync: false
+      - key: DB_USER
+        sync: false
+      - key: DB_PASSWORD
+        sync: false
+      - key: DB_NAME
+        value: plataforma_zenu
+      - key: DB_SSL
+        value: "true"

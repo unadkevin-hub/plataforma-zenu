@@ -1,0 +1,25 @@
+<%- include('../partials/cabecera') %>
+<h1 class="h3 mb-3">Mi progreso</h1>
+<div class="row g-3 mb-4">
+  <div class="col-4"><div class="tarjeta p-3 text-center"><div class="cifra"><%= tot.respondidas %></div><div class="small">actividades respondidas</div></div></div>
+  <div class="col-4"><div class="tarjeta p-3 text-center"><div class="cifra"><%= tot.aprobadas %></div><div class="small">aprobadas</div></div></div>
+  <div class="col-4"><div class="tarjeta p-3 text-center"><div class="cifra"><%= tot.intentos %></div><div class="small">intentos en total</div></div></div>
+</div>
+<h2 class="h5">Avance por módulo</h2>
+<div class="tarjeta p-3 mb-4">
+<% modulos.forEach(function(m){ %>
+  <div class="mb-3">
+    <div class="d-flex justify-content-between gap-2"><span><%= m.titulo %></span><strong class="text-nowrap"><%= m.avance %> %</strong></div>
+    <div class="progress" role="progressbar" aria-label="Avance en <%= m.titulo %>" aria-valuenow="<%= m.avance %>" aria-valuemin="0" aria-valuemax="100"><div class="progress-bar" style="width: <%= m.avance %>%"></div></div>
+    <div class="small text-body-secondary"><%= m.lecciones_completadas %>/<%= m.total_lecciones %> lecciones · <%= m.actividades_aprobadas %>/<%= m.total_actividades %> actividades aprobadas</div>
+  </div>
+<% }) %>
+</div>
+<h2 class="h5">Mis logros</h2>
+<% if (!logros.length) { %><p>Todavía no tienes logros. ¡Responde tu primera actividad!</p><% } %>
+<div class="row g-3">
+<% logros.forEach(function(l){ %>
+  <div class="col-md-4"><div class="tarjeta p-3 d-flex gap-2 align-items-center logro"><img src="/img/<%= l.icono %>" alt="" width="44" height="44"><div><strong><%= l.titulo %></strong><div class="small"><%= l.detalle %></div></div></div></div>
+<% }) %>
+</div>
+<%- include('../partials/pie') %>

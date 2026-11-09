@@ -1,0 +1,30 @@
+<%- include('../partials/cabecera') %>
+<div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+  <h1 class="h3 mb-0">Usuarios y roles</h1>
+  <a class="btn btn-outline-dark" href="/admin/exportar.csv">Exportar resultados anonimizados (CSV)</a>
+</div>
+<div class="table-responsive tarjeta">
+<table class="table mb-0 align-middle">
+  <thead><tr><th>Alias</th><th>Edad</th><th>Rol</th><th>Respuestas</th><th>Estado</th><th></th></tr></thead>
+  <tbody>
+  <% usuarios.forEach(function(u){ %>
+  <tr>
+    <td><%= u.alias %></td><td><%= u.rango_edad %></td>
+    <td>
+      <form method="post" action="/admin/usuarios/<%= u.id_usuario %>/rol" class="d-flex gap-1">
+        <input type="hidden" name="_csrf" value="<%= csrf %>">
+        <select name="id_rol" class="form-select form-select-sm" aria-label="Rol de <%= u.alias %>" <%= u.id_usuario === usuario.id ? 'disabled' : '' %>>
+          <% roles.forEach(function(r){ %><option value="<%= r.id_rol %>" <%= r.id_rol === u.id_rol ? 'selected' : '' %>><%= r.nombre %></option><% }) %>
+        </select>
+        <% if (u.id_usuario !== usuario.id) { %><button class="btn btn-sm btn-outline-dark">Cambiar</button><% } %>
+      </form>
+    </td>
+    <td><%= u.respuestas %></td>
+    <td><span class="badge <%= u.activo ? 'text-bg-success' : 'text-bg-secondary' %>"><%= u.activo ? 'Activa' : 'Inactiva' %></span></td>
+    <td><% if (u.id_usuario !== usuario.id) { %><form method="post" action="/admin/usuarios/<%= u.id_usuario %>/estado"><input type="hidden" name="_csrf" value="<%= csrf %>"><button class="btn btn-sm btn-outline-secondary"><%= u.activo ? 'Desactivar' : 'Activar' %></button></form><% } %></td>
+  </tr>
+  <% }) %>
+  </tbody>
+</table>
+</div>
+<%- include('../partials/pie') %>

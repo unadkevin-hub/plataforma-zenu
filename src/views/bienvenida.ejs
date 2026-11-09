@@ -1,0 +1,8 @@
+<%- include('partials/cabecera') %>
+<div class="mx-auto tarjeta p-4" style="max-width:560px">
+  <h1 class="h3">¡Listo, <%= usuario.alias %>!</h1>
+  <p>Este es tu <strong>código de recuperación</strong>. Sirve para cambiar tu contraseña si la olvidas. Escríbelo en tu cuaderno o tómale una foto. <strong>Solo se muestra una vez.</strong></p>
+  <p class="codigo text-center" aria-label="Código de recuperación"><%= codigo %></p>
+  <a class="btn btn-primary w-100" href="/panel">Ya lo guardé, continuar</a>
+</div>
+<%- include('partials/pie') %>

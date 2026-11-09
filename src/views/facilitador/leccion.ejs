@@ -1,0 +1,18 @@
+<%- include('../partials/cabecera') %>
+<nav aria-label="Ruta de navegación"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="/facilitador">Contenidos</a></li><li class="breadcrumb-item"><a href="/facilitador/modulos/<%= l.id_modulo %>"><%= l.modulo %></a></li><li class="breadcrumb-item active" aria-current="page"><%= l.titulo %></li></ol></nav>
+<div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+  <h1 class="h3 mb-0"><%= l.titulo %> <span class="badge fs-6 <%= l.publicado ? 'text-bg-success' : 'text-bg-secondary' %>"><%= l.publicado ? 'Publicada' : 'Borrador' %></span></h1>
+  <a class="btn btn-outline-dark" href="/facilitador/lecciones/<%= l.id_leccion %>/editar">Editar lección</a>
+</div>
+<details class="tarjeta p-3 mb-4"><summary class="fw-semibold">Vista previa del contenido</summary><div class="leccion mt-3"><%- html %></div></details>
+<div class="d-flex justify-content-between align-items-center mb-2"><h2 class="h5 mb-0">Actividades (<%= actividades.length %>)</h2><a class="btn btn-primary btn-sm" href="/facilitador/lecciones/<%= l.id_leccion %>/actividades/nueva">+ Nueva actividad</a></div>
+<% actividades.forEach(function(a, i){ %>
+<div class="tarjeta p-3 mb-2">
+  <div class="d-flex justify-content-between gap-2"><strong><%= i + 1 %>. <%= a.enunciado %></strong>
+  <div class="d-flex gap-1"><a class="btn btn-sm btn-outline-dark" href="/facilitador/actividades/<%= a.id_actividad %>/editar">Editar</a>
+  <form method="post" action="/facilitador/actividades/<%= a.id_actividad %>/eliminar" class="confirmar" data-confirmar="¿Eliminar esta actividad?"><input type="hidden" name="_csrf" value="<%= csrf %>"><button class="btn btn-sm btn-outline-danger">Eliminar</button></form></div></div>
+  <ol type="a" class="small mb-1 mt-2"><% a.opciones.forEach(function(o, j){ %><li class="<%= j === a.respuesta ? 'fw-bold text-success' : '' %>"><%= o %><%= j === a.respuesta ? ' ✓' : '' %></li><% }) %></ol>
+  <div class="small text-body-secondary">Retroalimentación: <%= a.retroalimentacion %></div>
+</div>
+<% }) %>
+<%- include('../partials/pie') %>

@@ -1,0 +1,6 @@
+<% if (errores && errores.length) { %>
+<div class="alert alert-danger" role="alert">
+  <p class="fw-semibold mb-1">Revisa lo siguiente:</p>
+  <ul class="mb-0"><% errores.forEach(function(e){ %><li><%= e %></li><% }) %></ul>
+</div>
+<% } %>

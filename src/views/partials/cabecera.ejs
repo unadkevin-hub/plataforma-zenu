@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Plataforma web para fortalecer competencias digitales básicas en jóvenes del Resguardo Zenú de Pan Señor, Sampués, Sucre.">
+  <meta name="theme-color" content="#2b2118">
+  <title><%= typeof titulo !== 'undefined' ? titulo + ' · ' : '' %>Ruta Digital Zenú</title>
+  <link rel="icon" href="/img/logo.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/vendor/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/estilos.css">
+  <script src="/js/app.js" defer></script>
+</head>
+<body>
+<a class="visually-hidden-focusable saltar" href="#contenido">Saltar al contenido</a>
+<header class="barra">
+  <div class="container d-flex align-items-center justify-content-between py-2">
+    <a class="marca" href="/">
+      <img src="/img/logo.svg" alt="" width="36" height="36">
+      <span>Ruta Digital <strong>Zenú</strong></span>
+    </a>
+    <% if (usuario) { %>
+    <button class="btn btn-sm btn-outline-light d-md-none" type="button" id="btn-menu" aria-expanded="false" aria-controls="menu">Menú</button>
+    <% } %>
+  </div>
+  <% if (usuario) { %>
+  <nav id="menu" class="menu container" aria-label="Menú principal">
+    <ul>
+      <% if (usuario.rol === 1) { %>
+        <li><a href="/panel" class="<%= ruta === '/panel' ? 'activo' : '' %>">Mi panel</a></li>
+        <li><a href="/progreso" class="<%= ruta === '/progreso' ? 'activo' : '' %>">Mi progreso</a></li>
+      <% } else { %>
+        <li><a href="/facilitador" class="<%= ruta.startsWith('/facilitador') && !ruta.startsWith('/facilitador/reportes') && !ruta.startsWith('/facilitador/estudiantes') ? 'activo' : '' %>">Contenidos</a></li>
+        <li><a href="/facilitador/reportes" class="<%= ruta.startsWith('/facilitador/reportes') ? 'activo' : '' %>">Reportes</a></li>
+        <li><a href="/facilitador/estudiantes" class="<%= ruta.startsWith('/facilitador/estudiantes') ? 'activo' : '' %>">Estudiantes</a></li>
+        <% if (usuario.rol === 3) { %><li><a href="/admin/usuarios" class="<%= ruta.startsWith('/admin') ? 'activo' : '' %>">Usuarios</a></li><% } %>
+      <% } %>
+      <li><a href="/perfil" class="<%= ruta === '/perfil' ? 'activo' : '' %>">Perfil (<%= usuario.alias %>)</a></li>
+      <li>
+        <form action="/salir" method="post" class="d-inline">
+          <input type="hidden" name="_csrf" value="<%= csrf %>">
+          <button type="submit" class="enlace-salir">Salir</button>
+        </form>
+      </li>
+    </ul>
+  </nav>
+  <% } %>
+</header>
+<main id="contenido" class="container py-4">
+<% if (flash) { %>
+  <div class="alert alert-<%= flash.tipo %>" role="status"><%= flash.texto %></div>
+<% } %>

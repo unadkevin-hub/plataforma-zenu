@@ -1,0 +1,34 @@
+{
+ "general": {
+  "respuestas": 653,
+  "puntaje": "100.0",
+  "intentos": "1.37",
+  "aprobacion": "100.0"
+ },
+ "modulos": [
+  {
+   "id_modulo": 1,
+   "aprob": "100.0",
+   "intentos": "1.43",
+   "primer_intento": "64.4",
+   "titulo": "Herramientas ofimáticas",
+   "completaron": 25
+  },
+  {
+   "id_modulo": 2,
+   "aprob": "100.0",
+   "intentos": "1.35",
+   "primer_intento": "70.7",
+   "titulo": "Búsqueda y evaluación de información",
+   "completaron": 25
+  },
+  {
+   "id_modulo": 3,
+   "aprob": "100.0",
+   "intentos": "1.33",
+   "primer_intento": "70.0",
+   "titulo": "Navegación segura y uso responsable",
+   "completaron": 22
+  }
+ ]
+}

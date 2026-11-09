@@ -1,0 +1,57 @@
+<%- include('../partials/cabecera') %>
+<nav aria-label="Ruta de navegación"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="/panel">Mi panel</a></li><li class="breadcrumb-item"><a href="/modulos/<%= leccion.id_modulo %>"><%= leccion.modulo %></a></li><li class="breadcrumb-item active" aria-current="page"><%= leccion.titulo %></li></ol></nav>
+<article class="tarjeta p-4 mb-4 leccion">
+  <h1 class="h3"><%= leccion.titulo %></h1>
+  <p class="small text-body-secondary"><%= leccion.minutos %> minutos de lectura <% if (completada) { %>· <span class="text-success fw-semibold">Lección completada</span><% } %></p>
+  <%- html %>
+  <% if (leccion.url_video) { %>
+  <div class="video mt-3" data-video="<%= leccion.url_video %>">
+    <button type="button" class="btn btn-outline-dark btn-sm cargar-video">Ver video de apoyo (consume datos)</button>
+    <noscript><a href="<%= leccion.url_video %>" rel="noopener" target="_blank">Abrir video en YouTube</a></noscript>
+  </div>
+  <% } %>
+</article>
+
+<% if (actividades.length) { %>
+<h2 class="h4 mb-3">Practica</h2>
+<% actividades.forEach(function(a, i){ const r = retro && retro.id === a.id_actividad ? retro : null; %>
+<form class="tarjeta p-3 mb-3 actividad" id="actividad-<%= a.id_actividad %>" method="post" action="/actividades/<%= a.id_actividad %>/responder">
+  <input type="hidden" name="_csrf" value="<%= csrf %>">
+  <fieldset>
+    <legend class="fs-6 fw-semibold"><span class="text-body-secondary">Pregunta <%= i + 1 %>.</span> <%= a.enunciado %></legend>
+    <% a.opciones.forEach(function(o, j){ %>
+    <div class="form-check opcion">
+      <input class="form-check-input" type="radio" name="opcion" id="a<%= a.id_actividad %>o<%= j %>" value="<%= j %>" required>
+      <label class="form-check-label" for="a<%= a.id_actividad %>o<%= j %>"><%= o %></label>
+    </div>
+    <% }) %>
+  </fieldset>
+  <div class="d-flex align-items-center gap-2 mt-2">
+    <button type="submit" class="btn btn-primary btn-sm">Comprobar</button>
+    <span class="small estado-actividad">
+      <% if (a.estado === 'aprobada') { %><span class="text-success">✓ Aprobada</span> · <%= a.intentos %> intento(s)<% } else if (a.estado === 'no_aprobada') { %><span class="text-danger-emphasis">Inténtalo otra vez</span> · <%= a.intentos %> intento(s)<% } %>
+    </span>
+  </div>
+  <div class="retro mt-2" aria-live="polite">
+    <% if (r) { %>
+      <div class="alert <%= r.correcta ? 'alert-success' : 'alert-warning' %> mb-0">
+        <strong><%= r.correcta ? '¡Correcto!' : 'No es correcto.' %></strong>
+        <% if (!r.correcta) { %>La respuesta correcta es: <em><%= r.respuestaCorrecta %></em>.<% } %>
+        <%= r.retroalimentacion %>
+      </div>
+    <% } %>
+  </div>
+</form>
+<% }) %>
+<% } else if (!completada) { %>
+<form method="post" action="/lecciones/<%= leccion.id_leccion %>/completar">
+  <input type="hidden" name="_csrf" value="<%= csrf %>">
+  <button class="btn btn-primary">Marcar lección como completada</button>
+</form>
+<% } %>
+
+<div class="d-flex justify-content-between mt-4">
+  <% if (vecinas.anterior) { %><a class="btn btn-outline-dark" href="/lecciones/<%= vecinas.anterior %>">← Anterior</a><% } else { %><span></span><% } %>
+  <% if (vecinas.siguiente) { %><a class="btn btn-primary" href="/lecciones/<%= vecinas.siguiente %>">Siguiente lección →</a><% } else { %><a class="btn btn-primary" href="/modulos/<%= leccion.id_modulo %>">Volver al módulo</a><% } %>
+</div>
+<%- include('../partials/pie') %>

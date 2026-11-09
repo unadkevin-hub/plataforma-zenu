@@ -1,0 +1,32 @@
+[
+ {
+  "red": "3G lento (400 kbps, 400 ms)",
+  "panel_s": "1.76",
+  "panel_kb": 46,
+  "leccion_s": "1.67",
+  "leccion_kb": 43,
+  "actividades": "3/3",
+  "resp_prom_s": "0.87",
+  "leccion_completada": true
+ },
+ {
+  "red": "3G (1,6 Mbps, 150 ms)",
+  "panel_s": "0.55",
+  "panel_kb": 46,
+  "leccion_s": "0.55",
+  "leccion_kb": 43,
+  "actividades": "3/3",
+  "resp_prom_s": "0.26",
+  "leccion_completada": true
+ },
+ {
+  "red": "4G (9 Mbps, 60 ms)",
+  "panel_s": "0.20",
+  "panel_kb": 46,
+  "leccion_s": "0.19",
+  "leccion_kb": 43,
+  "actividades": "3/3",
+  "resp_prom_s": "0.16",
+  "leccion_completada": true
+ }
+]

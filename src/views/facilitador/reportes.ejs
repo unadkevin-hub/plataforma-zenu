@@ -1,0 +1,33 @@
+<%- include('../partials/cabecera') %>
+<h1 class="h3 mb-1">Reportes del grupo</h1>
+<p class="small text-body-secondary">Datos agregados. No se muestran alias ni datos que permitan identificar a los estudiantes.</p>
+<div class="row g-3 mb-4">
+  <div class="col-4"><div class="tarjeta p-3 text-center"><div class="cifra"><%= general.estudiantes %></div><div class="small">estudiantes activos</div></div></div>
+  <div class="col-4"><div class="tarjeta p-3 text-center"><div class="cifra"><%= general.r1517 %></div><div class="small">de 15 a 17 años</div></div></div>
+  <div class="col-4"><div class="tarjeta p-3 text-center"><div class="cifra"><%= general.r1820 %></div><div class="small">de 18 a 20 años</div></div></div>
+</div>
+<h2 class="h5">Avance por módulo</h2>
+<div class="table-responsive tarjeta mb-4">
+<table class="table mb-0 align-middle">
+  <thead><tr><th>Módulo</th><th>Iniciaron</th><th>Completaron</th><th>% completitud</th><th>Puntaje promedio</th><th>Intentos promedio</th></tr></thead>
+  <tbody>
+  <% modulos.forEach(function(m){ const pct = general.estudiantes ? Math.round(100 * m.completaron / general.estudiantes) : 0; %>
+  <tr><td><%= m.titulo %></td><td><%= m.iniciaron %></td><td><%= m.completaron %></td>
+  <td style="min-width:140px"><div class="progress" role="progressbar" aria-label="Completitud" aria-valuenow="<%= pct %>" aria-valuemin="0" aria-valuemax="100"><div class="progress-bar" style="width: <%= pct %>%"></div></div><span class="small"><%= pct %> %</span></td>
+  <td><%= m.promedio === null ? '—' : m.promedio %></td><td><%= m.intentos === null ? '—' : m.intentos %></td></tr>
+  <% }) %>
+  </tbody>
+</table>
+</div>
+<h2 class="h5">Actividades con más dificultad</h2>
+<div class="table-responsive tarjeta">
+<table class="table mb-0 align-middle">
+  <thead><tr><th>Actividad</th><th>Lección</th><th>Respuestas</th><th>% aprobación</th><th>Intentos prom.</th></tr></thead>
+  <tbody>
+  <% dificiles.forEach(function(d){ %><tr><td class="small"><%= d.enunciado %></td><td class="small"><%= d.leccion %></td><td><%= d.respuestas %></td><td><%= d.pct_aprobacion %> %</td><td><%= d.intentos %></td></tr><% }) %>
+  <% if (!dificiles.length) { %><tr><td colspan="5">Aún no hay respuestas registradas.</td></tr><% } %>
+  </tbody>
+</table>
+</div>
+<% if (usuario.rol === 3) { %><a class="btn btn-outline-dark mt-3" href="/admin/exportar.csv">Exportar resultados anonimizados (CSV)</a><% } %>
+<%- include('../partials/pie') %>

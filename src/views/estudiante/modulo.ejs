@@ -1,0 +1,22 @@
+<%- include('../partials/cabecera') %>
+<nav aria-label="Ruta de navegación"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="/panel">Mi panel</a></li><li class="breadcrumb-item active" aria-current="page"><%= modulo.titulo %></li></ol></nav>
+<div class="d-flex align-items-center gap-3 mb-2">
+  <img src="/img/<%= modulo.icono %>" alt="" width="56" height="56">
+  <div><h1 class="h3 mb-0"><%= modulo.titulo %></h1><span class="small text-body-secondary">Área DigComp 2.2: <%= modulo.area_digcomp %></span></div>
+</div>
+<p><%= modulo.descripcion %></p>
+<div class="progress mb-1" role="progressbar" aria-label="Avance del módulo" aria-valuenow="<%= avance %>" aria-valuemin="0" aria-valuemax="100"><div class="progress-bar" style="width: <%= avance %>%"></div></div>
+<p class="small mb-4"><%= avance %> % completado</p>
+<ol class="list-unstyled lecciones">
+<% lecciones.forEach(function(l, i){ %>
+  <li class="tarjeta p-3 mb-2 d-flex align-items-center justify-content-between gap-2">
+    <div>
+      <span class="numero <%= l.completada_en ? 'hecho' : '' %>" aria-hidden="true"><%= l.completada_en ? '✓' : i + 1 %></span>
+      <a href="/lecciones/<%= l.id_leccion %>" class="fw-semibold"><%= l.titulo %></a>
+      <div class="small text-body-secondary ms-5"><%= l.resumen %> · <%= l.minutos %> min · <%= l.total_actividades %> actividades</div>
+    </div>
+    <span class="badge <%= l.completada_en ? 'text-bg-success' : 'text-bg-light' %>"><%= l.completada_en ? 'Completada' : 'Pendiente' %></span>
+  </li>
+<% }) %>
+</ol>
+<%- include('../partials/pie') %>

@@ -1,0 +1,30 @@
+<%- include('../partials/cabecera') %>
+<div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+  <h1 class="h3 mb-0">Gestión de contenidos</h1>
+  <a class="btn btn-primary" href="/facilitador/modulos/nuevo">+ Nuevo módulo</a>
+</div>
+<div class="row g-3 mb-4">
+  <div class="col-6 col-md-3"><div class="tarjeta p-3 text-center"><div class="cifra"><%= resumen.estudiantes %></div><div class="small">estudiantes</div></div></div>
+  <div class="col-6 col-md-3"><div class="tarjeta p-3 text-center"><div class="cifra"><%= resumen.con_actividad %></div><div class="small">con actividad</div></div></div>
+  <div class="col-6 col-md-3"><div class="tarjeta p-3 text-center"><div class="cifra"><%= resumen.respuestas %></div><div class="small">respuestas</div></div></div>
+  <div class="col-6 col-md-3"><div class="tarjeta p-3 text-center"><div class="cifra"><%= resumen.promedio === null ? '—' : resumen.promedio %></div><div class="small">puntaje promedio</div></div></div>
+</div>
+<div class="table-responsive tarjeta">
+<table class="table mb-0 align-middle">
+  <thead><tr><th>Orden</th><th>Módulo</th><th>Área DigComp</th><th>Lecciones</th><th>Actividades</th><th>Estado</th><th></th></tr></thead>
+  <tbody>
+  <% modulos.forEach(function(m){ %>
+    <tr>
+      <td><%= m.orden %></td>
+      <td><a href="/facilitador/modulos/<%= m.id_modulo %>" class="fw-semibold"><%= m.titulo %></a></td>
+      <td class="small"><%= m.area_digcomp %></td>
+      <td><%= m.n_lecciones %></td>
+      <td><%= m.n_actividades %></td>
+      <td><span class="badge <%= m.publicado ? 'text-bg-success' : 'text-bg-secondary' %>"><%= m.publicado ? 'Publicado' : 'Borrador' %></span></td>
+      <td><a class="btn btn-sm btn-outline-dark" href="/facilitador/modulos/<%= m.id_modulo %>/editar">Editar</a></td>
+    </tr>
+  <% }) %>
+  </tbody>
+</table>
+</div>
+<%- include('../partials/pie') %>
