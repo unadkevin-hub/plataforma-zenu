@@ -105,7 +105,7 @@ public/          estilos, JavaScript del cliente e ilustraciones SVG
 tests/           pruebas automatizadas (Jest + Supertest)
 scripts/         simulación de uso con 25 participantes virtuales y análisis de los instrumentos
 docs/evidencias/ reportes de Lighthouse y de pruebas de baja velocidad
-docs/guion-video.md guion sugerido para el video de máximo 10 minutos
+docs/validacion.md resultados de la validación con los jóvenes del Resguardo
 ```
 
 ## Privacidad
