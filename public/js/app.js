@@ -95,7 +95,20 @@ document.addEventListener('DOMContentLoaded', function () {
           alerta.appendChild(document.createTextNode('. '));
         }
         alerta.appendChild(document.createTextNode(d.retroalimentacion));
-        caja.replaceChildren(alerta);
+        // Botón para seguir con la siguiente pregunta (ajuste de usabilidad tras la validación)
+        var seguir = document.createElement('a');
+        seguir.className = 'btn btn-primary btn-sm mt-2 siguiente-pregunta';
+        seguir.href = f.dataset.siguiente || '#navegacion-leccion';
+        seguir.textContent = f.dataset.ultima === '1' ? 'Terminar la lección ↓' : 'Siguiente pregunta ↓';
+        seguir.addEventListener('click', function (ev) {
+          var destino = document.querySelector(seguir.getAttribute('href'));
+          if (!destino) return;
+          ev.preventDefault();
+          destino.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          var foco = destino.querySelector('input, a, button');
+          if (foco) foco.focus({ preventScroll: true });
+        });
+        caja.replaceChildren(alerta, seguir);
         var est = f.querySelector('.estado-actividad');
         est.innerHTML = d.estado === 'aprobada' ? '<span class="text-success">✓ Aprobada</span> · ' + d.intentos + ' intento(s)' : '<span class="text-danger-emphasis">Inténtalo otra vez</span> · ' + d.intentos + ' intento(s)';
         if (d.leccionCompletada && !document.getElementById('aviso-completa')) {

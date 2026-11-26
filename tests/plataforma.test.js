@@ -176,6 +176,24 @@ describe('Módulos, lecciones y actividades (RF-04 a RF-08)', () => {
     const modulo = await a.get('/modulos/1');
     expect(modulo.text).toContain('¡Completaste este módulo!');
   });
+
+  test('CP-28 La lección indica dónde está el estudiante y cómo responder', async () => {
+    const r = await a.get('/lecciones/1');
+    expect(r.text).toContain('Lección 1 de 3');
+    expect(r.text).toContain('Cómo responder');
+    expect(r.text).toContain('Pregunta 1 de 3.');
+    expect(r.text).toContain('menu-estudiante');
+    expect(r.text).not.toContain('id="btn-menu"');
+  });
+
+  test('CP-29 Después de responder aparece el botón para seguir con la siguiente pregunta', async () => {
+    await a.post('/actividades/1/responder').type('form').send({ _csrf: a.csrf, opcion: 1 });
+    const p1 = await a.get('/lecciones/1');
+    expect(p1.text).toMatch(/href="#actividad-2">Siguiente pregunta/);
+    await a.post('/actividades/3/responder').type('form').send({ _csrf: a.csrf, opcion: 0 });
+    const p3 = await a.get('/lecciones/1');
+    expect(p3.text).toMatch(/href="#navegacion-leccion">Terminar la lección/);
+  });
 });
 
 describe('Facilitador y administrador (RF-09, RF-10, RF-12)', () => {

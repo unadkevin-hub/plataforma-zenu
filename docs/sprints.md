@@ -83,4 +83,18 @@ Un integrante del equipo instaló el prototipo en su computador y lo recorrió c
 | La respuesta correcta suele ser la opción más larga | Opciones reescritas con longitudes parecidas y orden distinto para cada estudiante | PU-15 |
 | No hay botón para pasar al siguiente módulo | Botones «Siguiente módulo» y «Mi panel» al terminar; aviso en el módulo completado | CP-27 |
 
-**Estado de las pruebas:** 42 pruebas automatizadas (15 unitarias y 27 de integración), todas aprobadas.
+## Ajustes de usabilidad después de la validación (26 de noviembre de 2026)
+
+Atendiendo la retroalimentación del tutor sobre la Fase 4 (SUS = 56,8, por debajo de la meta de 68), se hizo una iteración corta centrada en la navegación y las instrucciones.
+
+| Hallazgo de la validación | Ajuste | Verificación |
+|---|---|---|
+| No saber dónde continuar después de responder (P04, P06) | Botón «Siguiente pregunta» después de cada respuesta y «Terminar la lección» en la última | CP-29 |
+| Instrucciones confusas (P03, P08); sensación de necesitar ayuda (ítems 4 y 10 del SUS) | Recuadro «Cómo responder» con cuatro pasos y «Pregunta X de N» en cada actividad | CP-28 |
+| Dificultad para ubicarse y encontrar las opciones (P04) | «Lección X de N»; menú del estudiante siempre visible en el celular; «Mi panel» resaltado en módulos y lecciones | CP-28 |
+| Problemas de datos y conexión (6 de 10) | Uso sin conexión y videos más livianos | Planificado |
+| Piden más actividades interactivas | Nuevos tipos de actividad | Planificado |
+
+Pendiente: volver a aplicar la escala SUS con esta versión.
+
+**Estado de las pruebas:** 44 pruebas automatizadas (15 unitarias y 29 de integración), todas aprobadas.

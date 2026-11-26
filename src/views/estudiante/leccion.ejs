@@ -2,7 +2,7 @@
 <nav aria-label="Ruta de navegación"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="/panel">Mi panel</a></li><li class="breadcrumb-item"><a href="/modulos/<%= leccion.id_modulo %>"><%= leccion.modulo %></a></li><li class="breadcrumb-item active" aria-current="page"><%= leccion.titulo %></li></ol></nav>
 <article class="tarjeta p-4 mb-4 leccion">
   <h1 class="h3"><%= leccion.titulo %></h1>
-  <p class="small text-body-secondary"><%= leccion.minutos %> minutos de lectura <% if (completada) { %>· <span class="text-success fw-semibold">Lección completada</span><% } %></p>
+  <p class="small text-body-secondary"><span class="fw-semibold ubicacion-leccion">Lección <%= vecinas.posicion %> de <%= vecinas.total %></span> · <%= leccion.minutos %> minutos de lectura <% if (completada) { %>· <span class="text-success fw-semibold">Lección completada</span><% } %></p>
   <%- html %>
   <% if (leccion.url_video) { %>
   <div class="video mt-3" data-video="<%= leccion.url_video %>">
@@ -13,12 +13,22 @@
 </article>
 
 <% if (actividades.length) { %>
-<h2 class="h4 mb-3">Practica</h2>
-<% actividades.forEach(function(a, i){ const r = retro && retro.id === a.id_actividad ? retro : null; %>
-<form class="tarjeta p-3 mb-3 actividad" id="actividad-<%= a.id_actividad %>" method="post" action="/actividades/<%= a.id_actividad %>/responder">
+<h2 class="h4 mb-2">Practica · <%= actividades.length %> pregunta<%= actividades.length === 1 ? '' : 's' %></h2>
+<div class="tarjeta p-3 mb-3 como-responder" role="note">
+  <p class="fw-semibold mb-1">Cómo responder</p>
+  <ol class="mb-0 small">
+    <li>Lee la pregunta.</li>
+    <li>Toca la opción que creas correcta.</li>
+    <li>Presiona <strong>Comprobar</strong>. Si te equivocas, lee la explicación y vuelve a intentarlo.</li>
+    <li>Sigue con el botón <strong>Siguiente pregunta</strong>.</li>
+  </ol>
+</div>
+<% actividades.forEach(function(a, i){ const r = retro && retro.id === a.id_actividad ? retro : null;
+   const sig = actividades[i + 1] ? '#actividad-' + actividades[i + 1].id_actividad : '#navegacion-leccion'; %>
+<form class="tarjeta p-3 mb-3 actividad" id="actividad-<%= a.id_actividad %>" data-siguiente="<%= sig %>" data-ultima="<%= i === actividades.length - 1 ? '1' : '0' %>" method="post" action="/actividades/<%= a.id_actividad %>/responder">
   <input type="hidden" name="_csrf" value="<%= csrf %>">
   <fieldset>
-    <legend class="fs-6 fw-semibold"><span class="text-body-secondary">Pregunta <%= i + 1 %>.</span> <%= a.enunciado %></legend>
+    <legend class="fs-6 fw-semibold"><span class="text-body-secondary">Pregunta <%= i + 1 %> de <%= actividades.length %>.</span> <%= a.enunciado %></legend>
     <% a.orden_opciones.forEach(function(j){ const o = a.opciones[j]; %>
     <div class="form-check opcion">
       <input class="form-check-input" type="radio" name="opcion" id="a<%= a.id_actividad %>o<%= j %>" value="<%= j %>" required>
@@ -39,6 +49,7 @@
         <% if (!r.correcta) { %>La respuesta correcta es: <em><%= r.respuestaCorrecta %></em>.<% } %>
         <%= r.retroalimentacion %>
       </div>
+      <a class="btn btn-primary btn-sm mt-2 siguiente-pregunta" href="<%= sig %>"><%= i === actividades.length - 1 ? 'Terminar la lección ↓' : 'Siguiente pregunta ↓' %></a>
     <% } %>
   </div>
 </form>

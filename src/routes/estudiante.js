@@ -71,8 +71,11 @@ router.get('/lecciones/:id', requiereSesion, async (req, res, next) => {
   const [[vecinas]] = await pool.query(`
     SELECT
       (SELECT id_leccion FROM lecciones WHERE id_modulo = ? AND publicado = 1 AND (orden, id_leccion) < (?, ?) ORDER BY orden DESC, id_leccion DESC LIMIT 1) AS anterior,
-      (SELECT id_leccion FROM lecciones WHERE id_modulo = ? AND publicado = 1 AND (orden, id_leccion) > (?, ?) ORDER BY orden, id_leccion LIMIT 1) AS siguiente`,
-  [leccion.id_modulo, leccion.orden, leccion.id_leccion, leccion.id_modulo, leccion.orden, leccion.id_leccion]);
+      (SELECT id_leccion FROM lecciones WHERE id_modulo = ? AND publicado = 1 AND (orden, id_leccion) > (?, ?) ORDER BY orden, id_leccion LIMIT 1) AS siguiente,
+      (SELECT COUNT(*) FROM lecciones WHERE id_modulo = ? AND publicado = 1 AND (orden, id_leccion) <= (?, ?)) AS posicion,
+      (SELECT COUNT(*) FROM lecciones WHERE id_modulo = ? AND publicado = 1) AS total`,
+  [leccion.id_modulo, leccion.orden, leccion.id_leccion, leccion.id_modulo, leccion.orden, leccion.id_leccion,
+    leccion.id_modulo, leccion.orden, leccion.id_leccion, leccion.id_modulo]);
   const retro = req.session.retro || null;
   delete req.session.retro;
   res.render('estudiante/leccion', {

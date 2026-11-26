@@ -53,3 +53,11 @@ a.tarjeta.modulo:hover, a.tarjeta.modulo:focus { transform: translateY(-2px); bo
 
 .ver-clave { min-width: 5.5rem; border-color: #ced4da; color: #2b2118; background: #fffdf8; }
 .ver-clave:hover, .ver-clave[aria-pressed="true"] { background: #e7dcc6; color: #2b2118; }
+
+/* Ajuste de usabilidad tras la validación: el menú del estudiante (pocas opciones) siempre visible en el celular */
+@media (max-width: 767.98px) {
+  .menu.menu-estudiante { display: block; }
+  .menu.menu-estudiante ul { flex-direction: row; }
+}
+.como-responder ol { padding-left: 1.2rem; }
+.siguiente-pregunta { display: inline-block; }

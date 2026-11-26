@@ -61,10 +61,10 @@ Los estudiantes se registran desde la página de inicio.
 npm test
 ```
 
-Ejecuta 42 pruebas automatizadas:
+Ejecuta 44 pruebas automatizadas:
 
 - 15 pruebas unitarias (PU-01 a PU-15, `tests/unidad.test.js`) de funciones y componentes aislados: validaciones, conversión segura del contenido, código de recuperación, cálculo de logros, orden de las opciones y control de acceso.
-- 27 pruebas de integración (CP-01 a CP-27, `tests/plataforma.test.js`) sobre una base de datos aparte (`plataforma_zenu_test`), que recorren registro, autenticación, roles, actividades, progreso, panel del facilitador, reportes, exportación anonimizada, derechos del titular y seguridad. Las evidencias de Lighthouse y de las pruebas en conexión de baja velocidad están en `docs/evidencias/`.
+- 29 pruebas de integración (CP-01 a CP-29, `tests/plataforma.test.js`) sobre una base de datos aparte (`plataforma_zenu_test`), que recorren registro, autenticación, roles, actividades, progreso, panel del facilitador, reportes, exportación anonimizada, derechos del titular y seguridad. Las evidencias de Lighthouse y de las pruebas en conexión de baja velocidad están en `docs/evidencias/`.
 
 ## Uso en una sesión presencial sin internet
 
@@ -103,9 +103,10 @@ src/views/       plantillas EJS
 src/models.js    consultas de progreso y logros
 public/          estilos, JavaScript del cliente e ilustraciones SVG
 tests/           pruebas automatizadas (Jest + Supertest)
-scripts/         simulación de uso con 25 participantes virtuales y análisis de los instrumentos
+scripts/        verificación de la base de datos y prueba de carga con usuarios de prueba
 docs/evidencias/ reportes de Lighthouse y de pruebas de baja velocidad
 docs/validacion.md resultados de la validación con los jóvenes del Resguardo
+docs/sprints.md  registro de los sprints, trazabilidad de historias de usuario y ajustes
 ```
 
 ## Privacidad
